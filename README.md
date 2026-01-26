@@ -15,24 +15,18 @@ It is designed to be used alongside the official Qwen3‑TTS repo.
 ## Quick start
 
 ```bash
-mkdir -p ~/voice-models
-cd ~/voice-models
-
-# 1) Clone upstream
-
+# 1) Clone upstream (choose any working directory)
 git clone https://github.com/QwenLM/Qwen3-TTS.git
 cd Qwen3-TTS
 git checkout 0c6a7cbb6c8421a46332f8c2434c7825c4c855ef
 cd ..
 
-# 2) Clone this repo
-
+# 2) Clone this repo next to it (or anywhere you like)
 git clone https://github.com/cheeweijie/qwen3-tts-lora-finetuning.git
 
-# 3) Apply patches to upstream
-
-QWEN_DIR=~/voice-models/Qwen3-TTS \
-  bash qwen3-tts-lora-finetuning/scripts/apply_patches.sh
+# 3) Apply patches to upstream (set QWEN_DIR to your upstream clone)
+QWEN_DIR=/path/to/Qwen3-TTS \
+  bash /path/to/qwen3-tts-lora-finetuning/scripts/apply_patches.sh
 ```
 
 ## Environment setup (example)
@@ -46,12 +40,16 @@ pip install -U flash-attn --no-build-isolation
 
 ## Scripts
 
-All scripts expect `QWEN_DIR` pointing to the upstream clone.
+All scripts expect `QWEN_DIR` pointing to the upstream clone. If you keep both repos side‑by‑side, you can do:
+
+```bash
+QWEN_DIR=../Qwen3-TTS bash scripts/run_lora_train.sh
+```
 
 ### Train (LoRA)
 
 ```bash
-QWEN_DIR=~/voice-models/Qwen3-TTS \
+QWEN_DIR=/path/to/Qwen3-TTS \
 TRAIN_JSONL=/path/to/train_with_codes.jsonl \
 VAL_JSONL=/path/to/val_with_codes.jsonl \
 OUTPUT_DIR=/path/to/output_dir \
@@ -63,7 +61,7 @@ bash scripts/run_lora_train.sh
 ### Eval loss
 
 ```bash
-QWEN_DIR=~/voice-models/Qwen3-TTS \
+QWEN_DIR=/path/to/Qwen3-TTS \
 CHECKPOINT_DIR=/path/to/checkpoint-epoch-10 \
 TEST_JSONL=/path/to/test_with_codes.jsonl \
 bash scripts/run_eval_loss.sh
@@ -72,7 +70,7 @@ bash scripts/run_eval_loss.sh
 ### Inference
 
 ```bash
-QWEN_DIR=~/voice-models/Qwen3-TTS \
+QWEN_DIR=/path/to/Qwen3-TTS \
 BASE_MODEL=/path/to/Qwen3-TTS-12Hz-1.7B-Base \
 ADAPTER_DIR=/path/to/checkpoint-epoch-10 \
 OUT_WAV=./sample.wav \
