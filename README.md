@@ -35,6 +35,10 @@ If all epochs sound noisy, check these first:
 4) **Adapter wiring**
    - Confirm the adapter is applied (LoRA weights + `speaker_embedding.safetensors`).
 
+5) **LoRA scale**
+   - If outputs are noisy, try a smaller LoRA scale (we found **0.3** to be stable).
+   - Example: pass `--lora_scale 0.3` or set `LORA_SCALE=0.3` in the helper script.
+
 ## Quick start
 
 ```bash
@@ -98,6 +102,7 @@ BASE_MODEL=/path/to/Qwen3-TTS-12Hz-1.7B-Base \
 ADAPTER_DIR=/path/to/checkpoint-epoch-10 \
 OUT_WAV=./sample.wav \
 TEXT="On a quiet morning, the streets were nearly empty." \
+LORA_SCALE=0.3 \
 bash scripts/run_lora_infer.sh
 ```
 
