@@ -12,6 +12,29 @@ This repo provides **LoRA fine‑tuning scripts and patches** without forking up
 - Small, auditable changes
 - Easy to rebase when upstream updates
 
+## Experimental / Known Issues
+
+- This repo is **experimental** while we harden the full training + inference pipeline.
+- Some users may hear **noisy outputs** if the data prep or inference settings are off.
+
+## Troubleshooting (Noisy Output)
+
+If all epochs sound noisy, check these first:
+
+1) **Audio sample rate**
+   - Ensure training audio is **24 kHz** before generating `audio_codes`.
+   - Re-run `prepare_data.py` after resampling.
+
+2) **Inference length**
+   - Long, noisy tails usually mean decoding didn’t hit EOS.
+   - Cap generation length (e.g., `max_new_tokens`) if needed.
+
+3) **Inference backend**
+   - If FlashAttention is unstable, switch to `attn_implementation=sdpa`.
+
+4) **Adapter wiring**
+   - Confirm the adapter is applied (LoRA weights + `speaker_embedding.safetensors`).
+
 ## Quick start
 
 ```bash
