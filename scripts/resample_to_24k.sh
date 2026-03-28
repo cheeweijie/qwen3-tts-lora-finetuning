@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Resample all WAV files in a directory to 24kHz mono.
 # Qwen3-TTS codec pipeline requires exactly 24kHz — other sample rates
-# cause silent training failures (loss decreases but output is degraded).
+# cause crashes deep in training with no early warning.
 #
 # Usage: bash scripts/resample_to_24k.sh /path/to/audio_dir
 set -euo pipefail

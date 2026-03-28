@@ -126,11 +126,25 @@ bash scripts/run_bench.sh
 
 ## What the patch adds
 
-- `finetuning/sft_12hz_lora.py` — LoRA training script
-- `finetuning/infer_lora_custom_voice.py` — LoRA inference helper
+- `finetuning/sft_12hz_lora.py` — LoRA training with label-shift fix (PR #178), text_projection fix (PR #188), LR default 2e-6
+- `finetuning/infer_lora_custom_voice.py` — Inference with scale control, EOS cap, seed fixing
 - `finetuning/eval_sft_12hz.py` — Eval-only loss computation
 - `finetuning/bench_lora_step.py` — Step timing benchmark
 - Validation support added to `finetuning/sft_12hz.py`
+
+## Utility scripts
+
+| Script | Purpose |
+|--------|----------|
+| `scripts/run_lora_train.sh` | Training launcher with validated config |
+| `scripts/run_lora_infer.sh` | Single-sentence inference |
+| `scripts/run_eval_loss.sh` | Eval loss on test set |
+| `scripts/run_bench.sh` | Step timing benchmark |
+| `scripts/run_infer_epochs.sh` | One sample per checkpoint for listening comparison |
+| `scripts/compare_checkpoints.sh` | A/B comparison: checkpoints x scales x sentences |
+| `scripts/infer_long_text.sh` | Chunked long-text with seed-fixed timbre consistency |
+| `scripts/resample_to_24k.sh` | Resample audio dir to 24kHz before codec prep |
+| `scripts/apply_patches.sh` | Apply patches to upstream Qwen3-TTS clone |
 
 ## Upstream PR tracker
 
